@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roma Nagle — Computational Biology & Data Science</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f7f4ef;
+      --ink: #1a1a18;
+      --slate: #4a5568;
+      --accent: #2d5a4f;
+      --accent-light: #e8f0ee;
+      --gold: #b8935a;
+      --border: #ddd8cf;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", sans-serif; background: var(--cream); color: var(--ink); font-size: 16px; line-height: 1.7; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: table;
+      width: 100%;
+      height: 4rem;
+      box-sizing: border-box;
+      background: var(--cream);
+      border-bottom: 2px solid var(--gold);
+      padding: 0;
+    }
+    .nav-inner {
+      display: table-row;
+    }
+    .nav-logo-cell {
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: 4rem;
+      white-space: nowrap;
+    }
+    .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; color: var(--ink); text-decoration: none; letter-spacing: 0.03em; }
+    .nav-links-cell {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: right;
+      padding-right: 4rem;
+      white-space: nowrap;
+    }
+    .nav-right { display: inline-flex; align-items: center; height: 4rem; gap: 0; }
+    .nav-links { display: inline-flex; gap: 0; height: 4rem; }
+    .nav-links a { text-decoration: none; color: var(--slate); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; display: inline-flex; align-items: center; padding: 0 1.5rem; border-left: 1px solid var(--border); white-space: nowrap; height: 100%; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-light); }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 4.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem 5rem 6rem;
+      border-right: 1px solid var(--border);
+    }
+    .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1.5rem; }
+    .hero-name { font-family: "Playfair Display", serif; font-size: clamp(3rem, 5vw, 5rem); line-height: 1.05; margin-bottom: 1.5rem; }
+    .hero-tagline { font-size: 1.05rem; color: var(--slate); max-width: 42ch; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.8; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.75rem 1.75rem; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; text-decoration: none; transition: all 0.2s; border-radius: 2px; }
+    .btn-primary { background: var(--accent); color: white; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: #234840; }
+    .btn-secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-secondary:hover { background: var(--accent-light); }
+
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .hero-stats {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: rgba(0,0,0,0.3);
+    }
+    .stat { background: rgba(20,30,25,0.65); backdrop-filter: blur(10px); padding: 1.5rem 2rem; }
+    .stat-number { font-family: "Playfair Display", serif; font-size: 2rem; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+    .stat-label { font-size: 0.72rem; color: rgba(247,244,239,0.75); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    section { padding: 6rem 6rem; border-bottom: 1px solid var(--border); }
+    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
+    .section-num { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.12em; font-weight: 500; }
+    .section-title { font-family: "Playfair Display", serif; font-size: 2.5rem; color: var(--ink); }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 5rem; }
+    .about-text p { color: var(--slate); margin-bottom: 1.25rem; font-size: 1.05rem; }
+    .about-sidebar { border-left: 3px solid var(--gold); padding-left: 2rem; }
+    .sidebar-block { margin-bottom: 1.75rem; }
+    .sidebar-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.4rem; }
+    .sidebar-value { font-size: 0.95rem; color: var(--ink); }
+
+    /* TIMELINE */
+    #timeline { background: white; }
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; padding: 0 0 3rem 2.5rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -2.45rem; top: 0.4rem; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); border: 3px solid white; box-shadow: 0 0 0 2px var(--accent); }
+    .timeline-date { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.3rem; }
+    .timeline-role { font-family: "Playfair Display", serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 0.2rem; }
+    .timeline-org { font-size: 0.85rem; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+    .timeline-desc { font-size: 0.9rem; color: var(--slate); max-width: 62ch; line-height: 1.7; }
+    .timeline-badge { display: inline-block; margin-top: 0.6rem; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--accent-light); color: var(--accent); padding: 0.2rem 0.6rem; border-radius: 2px; font-weight: 500; }
+
+    /* PROJECTS */
+    #projects { background: var(--cream); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .project-card { background: var(--cream); padding: 2.25rem; transition: background 0.2s; }
+    .project-card:hover { background: var(--accent-light); }
+    .project-tag { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.6rem; }
+    .project-title { font-family: "Playfair Display", serif; font-size: 1.2rem; margin-bottom: 0.65rem; color: var(--ink); line-height: 1.3; }
+    .project-desc { font-size: 0.88rem; color: var(--slate); line-height: 1.7; margin-bottom: 1rem; }
+    .project-venue { font-size: 0.76rem; color: var(--accent); font-weight: 500; }
+    .project-links { display: flex; gap: 1rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .project-link { font-size: 0.76rem; color: var(--accent); text-decoration: none; font-weight: 500; border-bottom: 1px solid currentColor; transition: opacity 0.2s; }
+    .project-link:hover { opacity: 0.65; }
+
+    /* SKILLS */
+    #skills { background: var(--ink); }
+    #skills .section-title { color: var(--cream); }
+    #skills .section-num { color: var(--gold); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+    .skill-group-title { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .skill-list li { font-size: 0.9rem; color: rgba(247,244,239,0.8); display: flex; align-items: center; gap: 0.5rem; }
+    .skill-list li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    /* CONTACT */
+    #contact { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .contact-intro p { color: var(--slate); font-size: 1.05rem; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: var(--ink); padding: 1.1rem 1.5rem; border: 1px solid var(--border); background: white; transition: all 0.2s; }
+    .contact-item:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: var(--accent-light); border-radius: 2px; flex-shrink: 0; }
+    .contact-icon svg { width: 17px; height: 17px; color: var(--accent); }
+    .contact-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-bottom: 0.1rem; }
+    .contact-value { font-size: 0.92rem; }
+
+    footer { padding: 2rem 6rem; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--slate); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-right { height: 60vw; }
+      section { padding: 4rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.5rem; padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div style="
+
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Computational RNA Biology &middot; Machine Learning &middot; UC Berkeley</div>
+    <h1 class="hero-name">Roma<br>Nagle</h1>
+    <p class="hero-tagline">Computational RNA researcher focused on sequence&ndash;function modeling, structure prediction, and ML-driven RNA design, bridging genetics, biophysics, and evolution.</p>
+    <div style="display:inline-flex; align-items:center; gap:0.5rem; background:var(--accent-light); border-left: 3px solid var(--gold); padding: 0.5rem 1rem; margin-bottom: 2rem; font-size:0.82rem; color:var(--accent); font-weight:500; letter-spacing:0.03em;">
+  Applying to Computational Biology &amp; Systems Biology PhD programs &mdash; Fall 2026
+</div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Research</a>
+      <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-photo" src="headshot.jpg" alt="Roma Nagle" />
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-number">Cate Lab</div><div class="stat-label">Innovative Genomics Institute</div></div>
+      <div class="stat"><div class="stat-number">NeurIPS</div><div class="stat-label">AI4Science Workshop</div></div>
+      <div class="stat"><div class="stat-number">ABRCMS</div><div class="stat-label">Oral Presentation</div></div>
+      <div class="stat"><div class="stat-number">Koo Lab</div><div class="stat-label">Cold Spring Harbor Laboratory</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01 &mdash;</span>
+    <h2 class="section-title">About Me</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I&apos;m a fourth-year at UC Berkeley pursuing a dual degree in Molecular &amp; Cellular Biology and Data Science, with a domain emphasis in Biochemistry, Biophysics, and Structural Biology.</p>
+      <p>My work centers on <strong>computational RNA biology</strong>, specifically the application of machine learning to RNA sequence&ndash;function prediction and design. I&apos;m interested in how we can use deep learning, interpretable models, and evolutionary sequence data to understand and engineer RNA molecules with precision.</p>
+      <p>Across projects spanning RNA secondary structure prediction, tRNA charging specificity, combinatorial mutagenesis, and ribosomal phylogenetic alignments, I&apos;ve built an interdisciplinary toolbox at the intersection of genetics, biophysics, and evolution. I currently work in the <strong>Cate Lab at the Innovative Genomics Institute</strong> and spent summer 2025 at <strong>Cold Spring Harbor Laboratory</strong> in the Koo Lab.</p>
+
+      <div style="margin-top: 2rem;">
+        <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem;">Current Coursework &mdash; Spring 2026</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem;">
+          <span style="background:var(--accent-light);color:var(--accent);font-size:0.8rem;padding:0.3rem 0.75rem;border-radius:2px;font-weight:500;">MCB 100B &mdash; Biochemistry: Pathways &amp; Regulation</span>
+          <span style="background:var(--accent-light);color:var(--accent);font-size:0.8rem;padding:0.3rem 0.75rem;border-radius:2px;font-weight:500;">Data H195B &mdash; Data Science Honors Thesis</span>
+          <span style="background:var(--accent-light);color:var(--accent);font-size:0.8rem;padding:0.3rem 0.75rem;border-radius:2px;font-weight:500;">PH 142 &mdash; Probability &amp; Statistics in Biology</span>
+          <span style="background:var(--accent-light);color:var(--accent);font-size:0.8rem;padding:0.3rem 0.75rem;border-radius:2px;font-weight:500;">Physics 8B &mdash; Introductory Physics</span>
+        </div>
+
+        <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem;">Relevant Past Coursework</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">CS 189 &mdash; Intro to Machine Learning</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">Data C100 &mdash; Principles of Data Science</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">Data C140 &mdash; Probability for Data Science</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">BioE C142 &mdash; ML for Molecular Problems</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">CS 61B &mdash; Data Structures</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">MCB 100A &mdash; Biophysical Chemistry</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">MCB 140 &mdash; General Genetics</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">Math 54 &mdash; Linear Algebra &amp; Diff. Equations</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">MCB 153 &mdash; Molecular Medicine</span>
+          <span style="background:white;border:1px solid var(--border);color:var(--slate);font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:2px;">CS 61A &mdash; Structure &amp; Interpretation of Programs</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-sidebar">
+      <div class="sidebar-block"><div class="sidebar-label">Institution</div><div class="sidebar-value">University of California, Berkeley</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Majors</div><div class="sidebar-value">Molecular &amp; Cellular Biology, College of Letters &amp; Science<br>Data Science, College of Computing, Data Science &amp; Society</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Location</div><div class="sidebar-value">Berkeley / San Diego, CA</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Expected Graduation</div><div class="sidebar-value">December 2026</div></div>
+      <div class="sidebar-block" style="margin-top:1.5rem;">
+        <img src="rna-society-logo.png" alt="RNA Society Member" style="width:80px;height:80px;border-radius:50%;display:block;" />
+        <div style="font-size:0.72rem;color:var(--slate);margin-top:0.5rem;letter-spacing:0.05em;">RNA Society Member</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="section-header">
+    <span class="section-num">02 &mdash;</span>
+    <h2 class="section-title">Timeline</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">December 6&ndash;7, 2025</div>
+      <div class="timeline-role">Poster Presenter</div>
+      <div class="timeline-org">NeurIPS 2025 &mdash; AI4Science Workshop</div>
+      <div class="timeline-desc">Presented RNASSTR, a project training and evaluating RNA secondary structure prediction models on a large database compiled from Rfam, at the NeurIPS AI4Science Workshop.</div>
+      <div class="project-links" style="margin-top:0.6rem;"><a class="project-link" href="https://drive.google.com/file/d/1MUAgMSCTQzPWWY7hcvQHyDRU7A-fZ-5f/view" target="_blank">View Poster</a></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">November 19&ndash;23, 2025</div>
+      <div class="timeline-role">Oral Presenter</div>
+      <div class="timeline-org">ABRCMS 2025 &mdash; Annual Biomedical Research Conference for Minoritized Scientists</div>
+      <div class="timeline-desc">Presented research on machine-guided combinatorial mutagenesis for studying RNA sequence&ndash;function relationships, developed at the Koo Lab at Cold Spring Harbor Laboratory.</div>
+      <div class="project-links" style="margin-top:0.6rem;"><a class="project-link" href="https://drive.google.com/file/d/1OBSpXpOTmbgQcRPRJYzfL2AJLFydAguR/view" target="_blank">View Presentation</a></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">October 21, 2025</div>
+      <div class="timeline-role">Poster Presenter</div>
+      <div class="timeline-org">IGI Science Day 2025 &mdash; Innovative Genomics Institute</div>
+      <div class="timeline-desc">Presented research on GTDB phylogenetic rRNA visualization and ongoing work in the Cate Lab at the annual IGI Science Day symposium.</div>
+      <div class="project-links" style="margin-top:0.6rem;"><a class="project-link" href="https://drive.google.com/file/d/1yMWJrlCsPuDmNwXVX9TVKc_Lc3VHDDu6/view" target="_blank">View Poster</a></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">June 12, 2025 &mdash; Present</div>
+      <div class="timeline-role">Started in Koo Lab</div>
+      <div class="timeline-org">Cold Spring Harbor Laboratory &middot; Koo Lab</div>
+      <div class="timeline-desc">Selected as 1 of 17 students in the 2025 cohort. Developed a machine-guided framework for combinatorial mutagenesis to study RNA sequence&ndash;function relationships using ResidualBind and surrogate modeling for interpretability.</div>
+      <span class="timeline-badge">Oral Presentation &middot; ABRCMS 2025</span>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">December 17, 2024</div>
+      <div class="timeline-role">Attendee</div>
+      <div class="timeline-org">BARC &mdash; Bay Area RNA Club &middot; UCSF</div>
+      <div class="timeline-desc">Attended the Bay Area RNA Club symposium at UCSF, connecting with RNA researchers across the Bay Area.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">May 12, 2024</div>
+      <div class="timeline-role">Rose Hills Scholar</div>
+      <div class="timeline-org">Rose Hills Foundation &middot; UC Berkeley</div>
+      <div class="timeline-desc">Awarded a Rose Hills Foundation scholarship supporting full-time summer research for UC Berkeley STEM undergraduates from Southern California.</div>
+      <div class="project-links" style="margin-top:0.6rem;"><a class="project-link" href="https://research.berkeley.edu/rose-hills/roma-nagle/" target="_blank">View Profile</a></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">December 15, 2023 &mdash; Present</div>
+      <div class="timeline-role">Started in Cate Lab</div>
+      <div class="timeline-org">Innovative Genomics Institute &middot; Cate Lab, UC Berkeley</div>
+      <div class="timeline-desc">Working across multiple projects: RNA secondary structure prediction (RNASSTR), tRNA charging specificity via ML (Honors Thesis), YbeY ribosomal enzyme bioinformatics, and GTDB phylogenetic rRNA visualization.</div>
+      <span class="timeline-badge">NeurIPS 2025 AI4Science Workshop</span>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">December 5, 2023</div>
+      <div class="timeline-role">Poster Presenter</div>
+      <div class="timeline-org">Data Science Discovery Symposium &middot; C-GEM Project</div>
+      <div class="timeline-desc">Presented work on the C-GEM Data Discovery Project, including an algorithm to extract synthetase and monomer names from scientific papers and a chemical formula&ndash;to&ndash;SMILES converter.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">August 2023</div>
+      <div class="timeline-role">Started at UC Berkeley</div>
+      <div class="timeline-org">University of California, Berkeley</div>
+      <div class="timeline-desc">Began dual degree in Molecular &amp; Cellular Biology and Data Science.</div>
+    </div>
+  </div>
+
+
+
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03 &mdash;</span>
+    <h2 class="section-title">Research &amp; Projects</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-tag">Cold Spring Harbor Lab &middot; Koo Lab</div>
+      <h3 class="project-title">Combinatorial Mutagenesis via Machine-Guided Framework</h3>
+      <p class="project-desc">Selected as 1 of 17 students in the 2025 URP cohort. Developed a machine-guided framework for combinatorial mutagenesis to study RNA sequence&ndash;function relationships, integrating ResidualBind and surrogate modeling for interpretability.</p>
+      <div class="project-venue">Oral Presentation &mdash; ABRCMS 2025</div>
+      <div class="project-links"><a class="project-link" href="https://drive.google.com/file/d/1OBSpXpOTmbgQcRPRJYzfL2AJLFydAguR/view" target="_blank">ABRCMS Presentation</a></div>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">IGI Cate Lab &middot; NeurIPS 2025</div>
+      <h3 class="project-title">RNASSTR: RNA Secondary Structure Prediction</h3>
+      <p class="project-desc">Trained, fine-tuned, and evaluated RNA secondary structure prediction models on a large database compiled from Rfam via Infernal. Implemented tokenization, hyperparameter optimization, and testing pipelines on the Lawrencium GPU cluster.</p>
+      <div class="project-venue">Accepted &mdash; NeurIPS 2025 AI4Science Workshop</div>
+      <div class="project-links">
+        <a class="project-link" href="https://www.biorxiv.org/content/10.1101/2025.05.03.652028v2" target="_blank">BioRxiv</a>
+        <a class="project-link" href="https://drive.google.com/file/d/1MUAgMSCTQzPWWY7hcvQHyDRU7A-fZ-5f/view" target="_blank">NeurIPS Poster</a>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">Honors Thesis &middot; IGI Cate Lab</div>
+      <h3 class="project-title">Decoding tRNA Charging Specificity via ML</h3>
+      <p class="project-desc">Developing interpretable ML methods to study tRNA identity elements and charging specificity using evolutionary sequence data. Applying RNA-FM embeddings, softmax classifiers, and HPC pipelines to identify class-specific features.</p>
+      <div class="project-venue">Data Science Undergraduate Honors Thesis &mdash; In Progress</div>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">IGI Cate Lab &middot; Bioinformatics</div>
+      <h3 class="project-title">GTDB Phylogenetic rRNA Visualizer</h3>
+      <p class="project-desc">Built an interactive web app for visualizing rRNA phylogenies, integrating a custom Perl module (MOTree) with a Flask frontend. Implemented backend pipelines to parse Newick files and generate scalable SVG trees.</p>
+      <div class="project-links">
+        <a class="project-link" href="https://drive.google.com/file/d/1yMWJrlCsPuDmNwXVX9TVKc_Lc3VHDDu6/view" target="_blank">IGI Science Day Poster</a>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">IGI Cate Lab &middot; Structural Biology</div>
+      <h3 class="project-title">YbeY Ribosomal Enzyme Analysis</h3>
+      <p class="project-desc">Collaborated directly with Prof. Cate on a bioinformatics-based exploration of YbeY, a nearly universal enzyme that forms iso-aspartate in ribosomal subunit protein backbone. Analyzed gene neighborhoods and visualized structures in ChimeraX and Coot.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">C-GEM &middot; NLP &amp; Cheminformatics</div>
+      <h3 class="project-title">C-GEM Data Discovery Pipeline</h3>
+      <p class="project-desc">Created an algorithm to scan and extract synthetase and monomer names from scientific literature and populate the C-GEM database. Developed a chemical formula&ndash;to&ndash;SMILES converter and locally deployed a user interface.</p>
+      <div class="project-links">
+        <a class="project-link" href="https://drive.google.com/file/d/1gQn481TF1urAHzmDy0O5bM1uEfI0zjKB/view?usp=sharing" target="_blank">View Poster</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">04 &mdash;</span>
+    <h2 class="section-title">Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div>
+      <div class="skill-group-title">Languages</div>
+      <ul class="skill-list">
+        <li>Python <span style="font-size:.75rem;color:var(--gold);margin-left:.25rem">(Proficient)</span></li>
+        <li>Java <span style="font-size:.75rem;color:var(--gold);margin-left:.25rem">(Intermediate)</span></li>
+        <li>Perl</li><li>SQL</li><li>HTML5 / CSS</li><li>Bash / SLURM</li>
+      </ul>
+    </div>
+    <div>
+      <div class="skill-group-title">ML &amp; Data Libraries</div>
+      <ul class="skill-list">
+        <li>PyTorch</li><li>TensorFlow</li><li>Scikit-learn</li>
+        <li>HuggingFace Transformers</li><li>Pandas</li><li>Matplotlib / Seaborn</li>
+      </ul>
+    </div>
+    <div>
+      <div class="skill-group-title">Bioinformatics Tools</div>
+      <ul class="skill-list">
+        <li>AlphaFold 3</li><li>tRNAscan-SE</li><li>Infernal / HMMER</li>
+        <li>R-Scape</li><li>FoldSeek</li><li>ChimeraX / Coot</li>
+      </ul>
+    </div>
+    <div>
+      <div class="skill-group-title">Computing &amp; Other</div>
+      <ul class="skill-list">
+        <li>NVIDIA CUDA</li><li>SLURM / HPC</li><li>WandB</li>
+        <li>Flask</li><li>Git / GitHub</li><li>R</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="hobbies">
+  <div class="section-header">
+    <span class="section-num">06 &mdash;</span>
+    <h2 class="section-title">Beyond the Lab</h2>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+    <div>
+      <p style="color: var(--slate); font-size: 1.05rem; line-height: 1.9; margin-bottom: 2rem;">Outside of research, I spent my first two years of undergrad on the Cal Mock Trial team, which sharpened how I think about constructing and communicating arguments. On the weekends, I also volunteer at a local soup kitchen, play pickleball with friends, hike around the Bay Area, and train for my first marathon.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border);">
+      <div style="overflow:hidden; aspect-ratio: 3/4;">
+        <img src="mocktrial.jpg" alt="Mock Trial" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <div style="overflow:hidden; aspect-ratio: 3/4;">
+        <img src="hiking.jpg" alt="Hiking" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;">
+  <div class="contact-intro">
+    <div class="section-header">
+      <span class="section-num">07 &mdash;</span>
+      <h2 class="section-title">Get in Touch</h2>
+    </div>
+    <p style="color: var(--slate); font-size: 1.05rem; margin-bottom: 2rem;">I&apos;m always happy to connect about research, collaborations, or opportunities in computational biology and ML.</p>
+    <a href="/cdn-cgi/l/email-protection#cab8a5a7aba4abada6af8aa8afb8a1afa6afb3e4afaebf" class="btn btn-primary">Send an Email</a>
+  </div>
+  <div class="contact-links">
+    <a href="/cdn-cgi/l/email-protection#63110c0e020d02040f062301061108060f061a4d060716" class="contact-item">
+      <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+      <div><div class="contact-label">Email</div><div class="contact-value"><span class="__cf_email__" data-cfemail="81f3eeece0efe0e6ede4c1e3e4f3eae4ede4f8afe4e5f4">[email&#160;protected]</span></div></div>
+    </a>
+    <a href="https://github.com/romanagle" target="_blank" class="contact-item">
+      <div class="contact-icon"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></div>
+      <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/romanagle</div></div>
+    </a>
+    <a href="https://www.linkedin.com/in/roma-nagle-8b4b77215" target="_blank" class="contact-item">
+      <div class="contact-icon"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
+      <div><div class="contact-label">LinkedIn</div><div class="contact-value">roma-nagle-8b4b77215</div></div>
+    </a>
+    <a href="https://x.com/nagle_roma" target="_blank" class="contact-item">
+      <div class="contact-icon"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+      <div><div class="contact-label">X / Twitter</div><div class="contact-value">
