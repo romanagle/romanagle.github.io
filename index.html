@@ -24,13 +24,13 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 0 4rem;
       height: 4rem;
-      background: var(--ink);
+      background: var(--cream);
       border-bottom: 2px solid var(--gold);
     }
-    .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; color: var(--cream); text-decoration: none; flex-shrink: 0; letter-spacing: 0.03em; }
+    .nav-logo { font-family: "Playfair Display", serif; font-size: 1.15rem; color: var(--ink); text-decoration: none; flex-shrink: 0; letter-spacing: 0.03em; }
     .nav-links { display: flex; gap: 0; flex-shrink: 0; height: 100%; }
-    .nav-links a { text-decoration: none; color: rgba(247,244,239,0.7); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; display: flex; align-items: center; padding: 0 1.5rem; border-left: 1px solid rgba(255,255,255,0.08); }
-    .nav-links a:hover { color: var(--gold); background: rgba(255,255,255,0.05); }
+    .nav-links a { text-decoration: none; color: var(--slate); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; display: flex; align-items: center; padding: 0 1.5rem; border-left: 1px solid var(--border); }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-light); }
 
     .hero {
       min-height: 100vh;
@@ -233,10 +233,11 @@
     <span class="section-num">02 &mdash;</span>
     <h2 class="section-title">Timeline</h2>
   </div>
+  <div style="display:grid; grid-template-columns: 1fr 380px; gap: 5rem; align-items: start;">
   <div class="timeline">
     <div class="timeline-item">
       <div class="timeline-dot"></div>
-      <div class="timeline-date">December 2025</div>
+      <div class="timeline-date">December 6&ndash;7, 2025</div>
       <div class="timeline-role">Poster Presenter</div>
       <div class="timeline-org">NeurIPS 2025 &mdash; AI4Science Workshop</div>
       <div class="timeline-desc">Presented RNASSTR, a project training and evaluating RNA secondary structure prediction models on a large database compiled from Rfam, at the NeurIPS AI4Science Workshop.</div>
@@ -244,7 +245,7 @@
     </div>
     <div class="timeline-item">
       <div class="timeline-dot"></div>
-      <div class="timeline-date">November 2025</div>
+      <div class="timeline-date">November 19&ndash;23, 2025</div>
       <div class="timeline-role">Oral Presenter</div>
       <div class="timeline-org">ABRCMS 2025 &mdash; Annual Biomedical Research Conference for Minoritized Scientists</div>
       <div class="timeline-desc">Presented research on machine-guided combinatorial mutagenesis for studying RNA sequence&ndash;function relationships, developed at the Koo Lab at Cold Spring Harbor Laboratory.</div>
@@ -304,6 +305,42 @@
       <div class="timeline-org">University of California, Berkeley</div>
       <div class="timeline-desc">Began dual degree in Molecular &amp; Cellular Biology and Data Science.</div>
     </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div style="position: sticky; top: 5rem;">
+    <div style="background: white; border: 1px solid var(--border); padding: 2rem; margin-bottom: 1.5rem;">
+      <div style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1.25rem;">Highlights</div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;"></div>
+          <div style="font-size:0.88rem;color:var(--slate);line-height:1.6;"><strong style="color:var(--ink);">NeurIPS 2025</strong> &mdash; AI4Science Workshop, RNA secondary structure prediction</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;"></div>
+          <div style="font-size:0.88rem;color:var(--slate);line-height:1.6;"><strong style="color:var(--ink);">ABRCMS 2025</strong> &mdash; Oral presentation on RNA sequence&ndash;function modeling</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;"></div>
+          <div style="font-size:0.88rem;color:var(--slate);line-height:1.6;"><strong style="color:var(--ink);">Cold Spring Harbor Lab</strong> &mdash; Koo Lab, summer 2025</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;"></div>
+          <div style="font-size:0.88rem;color:var(--slate);line-height:1.6;"><strong style="color:var(--ink);">Rose Hills Scholar</strong> &mdash; UC Berkeley, 2024</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;"></div>
+          <div style="font-size:0.88rem;color:var(--slate);line-height:1.6;"><strong style="color:var(--ink);">Cate Lab, IGI</strong> &mdash; Undergraduate researcher since Dec 2023</div>
+        </div>
+      </div>
+    </div>
+    <div style="background: var(--accent); padding: 2rem;">
+      <div style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem;">Currently</div>
+      <p style="font-size:0.9rem;color:rgba(247,244,239,0.9);line-height:1.7;margin-bottom:1rem;">Fourth-year at UC Berkeley, completing an honors thesis on tRNA charging specificity using interpretable ML.</p>
+      <p style="font-size:0.9rem;color:rgba(247,244,239,0.9);line-height:1.7;">Applying to Computational Biology &amp; Systems Biology PhD programs for Fall 2026.</p>
+    </div>
+  </div>
+
   </div>
 </section>
 
